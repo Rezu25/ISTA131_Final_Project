@@ -1,1 +1,1 @@
-
+so over the course of three weeks all three of us will be going to the gym to count how many people go to the gym for specific equipment such as Pool, Weights, treadmills, punching bags, yoga, ect. one will go in the morning, one will go at noon, and the third will go in the evening on one given day. we will take the three numbers and create a mean of the total students that came to use the equipment over the course of three weeks.
