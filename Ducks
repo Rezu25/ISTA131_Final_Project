@@ -1,8 +1,166 @@
 """
-file: ducks.py
-author: Kristal Gutierrez
-class: ISTA 131 || spring 2024
-Description: DUCKS
-==============================
+File: Ducks.py
+Author: Kristal Gutierrez
+Class: ISTA 131 || spring 2024
+Description: takes data file and slices the data into 3 differrent data sets:
+- total people in the gym every day || scatterplot with
+- pool M, pool N, pool AN || line graph
+- average people in the gym || bar graph
+=============================================================================
 NOTES:
 """
+import numpy as np
+import matplotlib.pyplot as plt
+from datetime import datetime, timedelta
+from matplotlib.dates import date2num
+
+"""GRAPH #1"""
+def graph1():
+    # Function to generate weekdays between two dates
+    def weekdays_between(start_date, end_date):
+        current_date = start_date
+        while current_date <= end_date:
+            if current_date.weekday() < 5:  # Monday to Friday (0 to 4)
+                yield current_date
+            current_date += timedelta(days=1)
+
+    # Sample data
+    start_date = datetime(2024, 3, 18)
+    end_date = datetime(2024, 4, 5)
+
+    # Generate list of weekdays between start_date and end_date
+    dates = list(weekdays_between(start_date, end_date))
+
+    # Sample total people using gym equipment for each dataset
+    # Replace these with your actual data
+    pool = [77, 51, 63, 61, 62, 66, 79, 74, 53, 52, 59, 52, 54, 78, 63]
+    treadmill = [18, 18, 24, 24, 23, 17, 16, 29, 30, 27, 21, 25, 27, 20, 28]
+    yoga = [20, 21, 28, 26, 17, 35, 31, 42, 31, 31, 32, 22, 33, 21, 27]
+    weights = [33, 27, 31, 26, 21, 35, 25, 26, 31, 30, 28, 26, 25, 31, 28]
+    punching_bags = [17, 12, 13, 13, 15, 7, 15, 8, 12, 7, 16, 20, 15, 19, 9]
+
+    # Combine total people from all datasets
+    total_people = np.array(pool) + np.array(treadmill) + np.array(yoga) + np.array(weights) + np.array(punching_bags)
+
+    # Create scatterplot for each dataset
+    plt.scatter(dates, pool, label='Pool')
+    plt.scatter(dates, treadmill, label='Treadmill')
+    plt.scatter(dates, yoga, label='Yoga')
+    plt.scatter(dates, weights, label='Weights')
+    plt.scatter(dates, punching_bags, label='Punching Bags')
+
+    # Calculate the regression line
+    regression_line = np.polyfit(date2num(dates), total_people, 1)
+
+    # Plot the regression line
+    plt.plot(dates, np.polyval(regression_line, date2num(dates)), color='black', linestyle='--', label='Regression Line')
+
+    # Add title and labels
+    plt.title('Total People Using Gym Equipment in a Day')
+    plt.xlabel('Date')
+    plt.ylabel('Total People Using Gym Equipment')
+
+    # Add legend
+    plt.legend()
+
+    # Rotate date labels for better readability
+    plt.gcf().autofmt_xdate()
+
+    # Show plot
+    plt.show()
+
+""" GRAPH 2 """
+
+def graph2():
+    # Function to generate weekdays between two dates
+    def weekdays_between(start_date, end_date):
+        current_date = start_date
+        while current_date <= end_date:
+            if current_date.weekday() < 5:  # Monday to Friday (0 to 4)
+                yield current_date
+            current_date += timedelta(days=1)
+
+    # Sample data
+    start_date = datetime(2024, 3, 18)
+    end_date = datetime(2024, 4, 5)
+
+    # Generate list of weekdays between start_date and end_date
+    dates = list(weekdays_between(start_date, end_date))
+
+    # Sample data for each time period
+    # Replace these with your actual data
+    Morning = [14, 11, 9, 10, 15, 13, 20, 15, 9, 15, 4, 11, 8, 17, 12]
+    Noon = [39, 30, 40, 35, 34, 29, 31, 42, 33, 25, 30, 22, 31, 41, 29]
+    After_Noon = [24, 10, 14, 16, 13, 24, 28, 17, 11, 12, 25, 19, 15, 20, 22]
+
+    # Plotting the line plot with bullet points
+    plt.plot(dates, Morning, marker='o', linestyle='-', label='Morning')
+    plt.plot(dates, Noon, marker='o', linestyle='-', label='Noon')
+    plt.plot(dates, After_Noon, marker='o', linestyle='-', label='After Noon')
+
+    # Add title and labels
+    plt.title('Amount of People at the Pool')
+    plt.xlabel('Date')
+    plt.ylabel('Number of People')
+
+    # Add legend
+    plt.legend()
+
+    # Rotate date labels for better readability
+    plt.gcf().autofmt_xdate()
+
+    # Show plot
+    plt.show()
+
+""" GRAPH 3 """
+
+def graph3():
+
+    # Function to generate weekdays between two dates
+    def weekdays_between(start_date, end_date):
+        current_date = start_date
+        while current_date <= end_date:
+            if current_date.weekday() < 5:  # Monday to Friday (0 to 4)
+                yield current_date
+            current_date += timedelta(days=1)
+
+    # Sample data
+    start_date = datetime(2024, 3, 18)
+    end_date = datetime(2024, 4, 5)
+
+    # Generate list of weekdays between start_date and end_date
+    dates = list(weekdays_between(start_date, end_date))
+
+    # Sample data for each equipment in the morning
+    # Replace these with your actual data
+    pool = [14, 11, 9, 10, 15, 13, 20, 15, 9, 15, 4, 11, 8, 17, 12]
+    treadmill = [2, 9, 7, 14, 9, 3, 8, 13, 15, 7, 5, 9, 12, 3, 11]
+    yoga = [16, 11, 18, 16, 12, 21, 19, 25, 13, 21, 20, 12, 19, 10, 16]
+    weights = [13, 11, 14, 12, 9, 15, 7, 9, 13, 12, 6, 9, 7, 12, 14]
+    punch = [8, 4, 10, 5, 8, 3, 6, 2, 5, 0, 11, 9, 6, 10, 3]
+
+    # Plotting the line graph for each equipment with bullet points
+    plt.plot(dates, pool, label='Pool', marker='o')
+    plt.plot(dates, treadmill, label='Treadmill', marker='o')
+    plt.plot(dates, yoga, label='Yoga', marker='o')
+    plt.plot(dates, weights, label='Weights', marker='o')
+    plt.plot(dates, punch, label='Punching Bags', marker='o')
+
+    # Add title and labels
+    plt.title('Amount of People at Certain Equipment in the Morning')
+    plt.xlabel('Date')
+    plt.ylabel('Number of People')
+
+    # Add legend
+    plt.legend()
+
+    # Rotate date labels for better readability
+    plt.gcf().autofmt_xdate()
+
+    # Show plot
+    plt.show()
+def main():
+    graph1()
+    graph2()
+    graph3()
+main()
