@@ -1,4 +1,4 @@
 Group:
 - Kristal Gutierrez
-- Ruby
+- Yokutjon Tohirova 
 - Farzan
